@@ -1,0 +1,162 @@
+{{template "header.html" .}}
+
+<div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+    <h1 class="h2">Services Management</h1>
+</div>
+
+<div class="row">
+    <div class="col-lg-4 mb-4">
+        <div class="card">
+            <div class="card-header">
+                <h5><i class="fas fa-server"></i> Web Servers</h5>
+            </div>
+            <div class="card-body">
+                <div class="list-group list-group-flush">
+                    <a href="/panel/services/apache" class="list-group-item list-group-item-action">
+                        <div class="d-flex w-100 justify-content-between">
+                            <h6 class="mb-1">Apache HTTP Server</h6>
+                            <span class="badge bg-success">Running</span>
+                        </div>
+                        <p class="mb-1">Industry-standard web server</p>
+                    </a>
+                    <a href="/panel/services/nginx" class="list-group-item list-group-item-action">
+                        <div class="d-flex w-100 justify-content-between">
+                            <h6 class="mb-1">Nginx</h6>
+                            <span class="badge bg-secondary">Stopped</span>
+                        </div>
+                        <p class="mb-1">High-performance web server</p>
+                    </a>
+                    <a href="/panel/services/php" class="list-group-item list-group-item-action">
+                        <div class="d-flex w-100 justify-content-between">
+                            <h6 class="mb-1">PHP-FPM</h6>
+                            <span class="badge bg-success">Running</span>
+                        </div>
+                        <p class="mb-1">PHP FastCGI Process Manager</p>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="col-lg-4 mb-4">
+        <div class="card">
+            <div class="card-header">
+                <h5><i class="fas fa-database"></i> Database Servers</h5>
+            </div>
+            <div class="card-body">
+                <div class="list-group list-group-flush">
+                    <div class="list-group-item">
+                        <div class="d-flex w-100 justify-content-between">
+                            <h6 class="mb-1">MariaDB</h6>
+                            <span class="badge bg-success">Running</span>
+                        </div>
+                        <p class="mb-1">MySQL-compatible database</p>
+                    </div>
+                    <div class="list-group-item">
+                        <div class="d-flex w-100 justify-content-between">
+                            <h6 class="mb-1">PostgreSQL</h6>
+                            <span class="badge bg-secondary">Not Installed</span>
+                        </div>
+                        <p class="mb-1">Advanced open source database</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="col-lg-4 mb-4">
+        <div class="card">
+            <div class="card-header">
+                <h5><i class="fas fa-envelope"></i> Mail Services</h5>
+            </div>
+            <div class="card-body">
+                <div class="list-group list-group-flush">
+                    <div class="list-group-item">
+                        <div class="d-flex w-100 justify-content-between">
+                            <h6 class="mb-1">Postfix (SMTP)</h6>
+                            <span class="badge bg-success">Running</span>
+                        </div>
+                        <p class="mb-1">Mail transfer agent</p>
+                    </div>
+                    <div class="list-group-item">
+                        <div class="d-flex w-100 justify-content-between">
+                            <h6 class="mb-1">Dovecot (IMAP/POP3)</h6>
+                            <span class="badge bg-success">Running</span>
+                        </div>
+                        <p class="mb-1">Mail delivery agent</p>
+                    </div>
+                    <div class="list-group-item">
+                        <div class="d-flex w-100 justify-content-between">
+                            <h6 class="mb-1">SpamAssassin</h6>
+                            <span class="badge bg-success">Running</span>
+                        </div>
+                        <p class="mb-1">Anti-spam filter</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-lg-6 mb-4">
+        <div class="card">
+            <div class="card-header">
+                <h5><i class="fas fa-shield-alt"></i> Security Services</h5>
+            </div>
+            <div class="card-body">
+                <div class="list-group list-group-flush">
+                    <div class="list-group-item">
+                        <div class="d-flex w-100 justify-content-between">
+                            <h6 class="mb-1">Firewall (iptables)</h6>
+                            <span class="badge bg-success">Active</span>
+                        </div>
+                        <p class="mb-1">Network security</p>
+                    </div>
+                    <div class="list-group-item">
+                        <div class="d-flex w-100 justify-content-between">
+                            <h6 class="mb-1">Fail2ban</h6>
+                            <span class="badge bg-success">Active</span>
+                        </div>
+                        <p class="mb-1">Intrusion prevention</p>
+                    </div>
+                    <div class="list-group-item">
+                        <div class="d-flex w-100 justify-content-between">
+                            <h6 class="mb-1">ClamAV</h6>
+                            <span class="badge bg-success">Running</span>
+                        </div>
+                        <p class="mb-1">Antivirus scanner</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="col-lg-6 mb-4">
+        <div class="card">
+            <div class="card-header">
+                <h5><i class="fas fa-globe"></i> DNS & Network</h5>
+            </div>
+            <div class="card-body">
+                <div class="list-group list-group-flush">
+                    <div class="list-group-item">
+                        <div class="d-flex w-100 justify-content-between">
+                            <h6 class="mb-1">BIND DNS</h6>
+                            <span class="badge bg-success">Running</span>
+                        </div>
+                        <p class="mb-1">Domain name server</p>
+                    </div>
+                    <div class="list-group-item">
+                        <div class="d-flex w-100 justify-content-between">
+                            <h6 class="mb-1">OpenSSH</h6>
+                            <span class="badge bg-success">Running</span>
+                        </div>
+                        <p class="mb-1">Secure shell access</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{{template "footer.html" .}}

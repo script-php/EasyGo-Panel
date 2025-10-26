@@ -1,0 +1,101 @@
+{{template "header.html" .}}
+
+<div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+    <h1 class="h2">Database Management</h1>
+    <button type="button" class="btn btn-primary">
+        <i class="fas fa-plus"></i> Create Database
+    </button>
+</div>
+
+<div class="row">
+    <div class="col-lg-8">
+        <div class="card">
+            <div class="card-header">
+                <h5>Databases</h5>
+            </div>
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th>Database</th>
+                                <th>Type</th>
+                                <th>Size</th>
+                                <th>User</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>example_db</td>
+                                <td>MariaDB</td>
+                                <td>15.2 MB</td>
+                                <td>example_user</td>
+                                <td>
+                                    <button class="btn btn-sm btn-outline-primary">Manage</button>
+                                    <button class="btn btn-sm btn-outline-info">Backup</button>
+                                    <button class="btn btn-sm btn-outline-danger">Delete</button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>test_db</td>
+                                <td>PostgreSQL</td>
+                                <td>8.7 MB</td>
+                                <td>test_user</td>
+                                <td>
+                                    <button class="btn btn-sm btn-outline-primary">Manage</button>
+                                    <button class="btn btn-sm btn-outline-info">Backup</button>
+                                    <button class="btn btn-sm btn-outline-danger">Delete</button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="col-lg-4">
+        <div class="card mb-4">
+            <div class="card-header">
+                <h5>Database Servers</h5>
+            </div>
+            <div class="card-body">
+                <div class="list-group list-group-flush">
+                    <div class="list-group-item d-flex justify-content-between align-items-center">
+                        <div>
+                            <strong>MariaDB</strong><br>
+                            <small>Version 10.6</small>
+                        </div>
+                        <span class="badge bg-success">Running</span>
+                    </div>
+                    <div class="list-group-item d-flex justify-content-between align-items-center">
+                        <div>
+                            <strong>PostgreSQL</strong><br>
+                            <small>Version 14.2</small>
+                        </div>
+                        <span class="badge bg-success">Running</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="card">
+            <div class="card-header">
+                <h5>Admin Tools</h5>
+            </div>
+            <div class="card-body">
+                <div class="d-grid gap-2">
+                    <a href="/phpmyadmin" class="btn btn-outline-primary" target="_blank">
+                        <i class="fas fa-external-link-alt"></i> phpMyAdmin
+                    </a>
+                    <a href="/phppgadmin" class="btn btn-outline-primary" target="_blank">
+                        <i class="fas fa-external-link-alt"></i> phpPgAdmin
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{{template "footer.html" .}}

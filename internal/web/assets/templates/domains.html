@@ -1,0 +1,156 @@
+{{template "header.html" .}}
+
+<div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+    <h1 class="h2">Domain Management</h1>
+    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addDomainModal">
+        <i class="fas fa-plus"></i> Add Domain
+    </button>
+</div>
+
+<div class="card">
+    <div class="card-body">
+        <div class="table-responsive">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>Domain</th>
+                        <th>Document Root</th>
+                        <th>Web Server</th>
+                        <th>PHP Version</th>
+                        <th>SSL</th>
+                        <th>Status</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>example.com</td>
+                        <td>/var/www/example.com</td>
+                        <td>Apache</td>
+                        <td>8.2</td>
+                        <td><span class="badge bg-success">Let's Encrypt</span></td>
+                        <td><span class="badge bg-success">Active</span></td>
+                        <td>
+                            <div class="btn-group" role="group">
+                                <button class="btn btn-sm btn-outline-primary">Edit</button>
+                                <button class="btn btn-sm btn-outline-info">SSL</button>
+                                <button class="btn btn-sm btn-outline-danger">Delete</button>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>test.com</td>
+                        <td>/var/www/test.com</td>
+                        <td>Nginx</td>
+                        <td>8.1</td>
+                        <td><span class="badge bg-warning">None</span></td>
+                        <td><span class="badge bg-success">Active</span></td>
+                        <td>
+                            <div class="btn-group" role="group">
+                                <button class="btn btn-sm btn-outline-primary">Edit</button>
+                                <button class="btn btn-sm btn-outline-info">SSL</button>
+                                <button class="btn btn-sm btn-outline-danger">Delete</button>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>demo.example.com</td>
+                        <td>/var/www/demo.example.com</td>
+                        <td>Apache</td>
+                        <td>7.4</td>
+                        <td><span class="badge bg-success">Let's Encrypt</span></td>
+                        <td><span class="badge bg-secondary">Disabled</span></td>
+                        <td>
+                            <div class="btn-group" role="group">
+                                <button class="btn btn-sm btn-outline-primary">Edit</button>
+                                <button class="btn btn-sm btn-outline-info">SSL</button>
+                                <button class="btn btn-sm btn-outline-danger">Delete</button>
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<!-- Add Domain Modal -->
+<div class="modal fade" id="addDomainModal" tabindex="-1">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Add New Domain</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+                <form>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label class="form-label">Domain Name</label>
+                                <input type="text" class="form-control" placeholder="example.com" required>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label class="form-label">Document Root</label>
+                                <input type="text" class="form-control" placeholder="/var/www/example.com" required>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label class="form-label">Web Server</label>
+                                <select class="form-select" required>
+                                    <option value="">Select web server...</option>
+                                    <option value="apache">Apache</option>
+                                    <option value="nginx">Nginx</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label class="form-label">PHP Version</label>
+                                <select class="form-select">
+                                    <option value="">No PHP</option>
+                                    <option value="8.2">PHP 8.2</option>
+                                    <option value="8.1">PHP 8.1</option>
+                                    <option value="7.4">PHP 7.4</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" id="enableSSL">
+                                    <label class="form-check-label" for="enableSSL">
+                                        Enable SSL (Let's Encrypt)
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" id="createDirectory">
+                                    <label class="form-check-label" for="createDirectory">
+                                        Create directory structure
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                <button type="button" class="btn btn-primary">Create Domain</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+{{template "footer.html" .}}

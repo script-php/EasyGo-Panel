@@ -1,0 +1,76 @@
+{{template "header.html" .}}
+
+<div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+    <h1 class="h2">Nginx Web Server</h1>
+    <div class="btn-toolbar mb-2 mb-md-0">
+        <div class="btn-group me-2">
+            <button type="button" class="btn btn-success btn-sm">Start</button>
+            <button type="button" class="btn btn-warning btn-sm">Restart</button>
+            <button type="button" class="btn btn-danger btn-sm">Stop</button>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-lg-8">
+        <div class="card mb-4">
+            <div class="card-header">
+                <h5>Server Blocks</h5>
+            </div>
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th>Domain</th>
+                                <th>Document Root</th>
+                                <th>SSL</th>
+                                <th>Status</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>nginx.example.com</td>
+                                <td>/var/www/nginx.example.com</td>
+                                <td><span class="badge bg-success">Active</span></td>
+                                <td><span class="badge bg-success">Enabled</span></td>
+                                <td>
+                                    <button class="btn btn-sm btn-outline-primary">Edit</button>
+                                    <button class="btn btn-sm btn-outline-danger">Delete</button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <button class="btn btn-primary">
+                    <i class="fas fa-plus"></i> Add Server Block
+                </button>
+            </div>
+        </div>
+    </div>
+    
+    <div class="col-lg-4">
+        <div class="card mb-4">
+            <div class="card-header">
+                <h5>Service Status</h5>
+            </div>
+            <div class="card-body">
+                <div class="d-flex justify-content-between align-items-center mb-3">
+                    <span>Status:</span>
+                    <span class="badge bg-secondary">Stopped</span>
+                </div>
+                <div class="d-flex justify-content-between align-items-center mb-3">
+                    <span>Version:</span>
+                    <span>1.22.1</span>
+                </div>
+                <div class="d-flex justify-content-between align-items-center">
+                    <span>Active Connections:</span>
+                    <span>0</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{{template "footer.html" .}}

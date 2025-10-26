@@ -1,0 +1,151 @@
+{{template "header.html" .}}
+
+<div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+    <h1 class="h2">Dashboard</h1>
+</div>
+
+<div class="row">
+    <div class="col-xl-3 col-md-6 mb-4">
+        <div class="card border-left-primary shadow h-100 py-2">
+            <div class="card-body">
+                <div class="row no-gutters align-items-center">
+                    <div class="col mr-2">
+                        <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">CPU Usage</div>
+                        <div class="h5 mb-0 font-weight-bold text-gray-800">45%</div>
+                    </div>
+                    <div class="col-auto">
+                        <i class="fas fa-microchip fa-2x text-gray-300"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="col-xl-3 col-md-6 mb-4">
+        <div class="card border-left-success shadow h-100 py-2">
+            <div class="card-body">
+                <div class="row no-gutters align-items-center">
+                    <div class="col mr-2">
+                        <div class="text-xs font-weight-bold text-success text-uppercase mb-1">Memory Usage</div>
+                        <div class="h5 mb-0 font-weight-bold text-gray-800">2.4 GB</div>
+                    </div>
+                    <div class="col-auto">
+                        <i class="fas fa-memory fa-2x text-gray-300"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="col-xl-3 col-md-6 mb-4">
+        <div class="card border-left-info shadow h-100 py-2">
+            <div class="card-body">
+                <div class="row no-gutters align-items-center">
+                    <div class="col mr-2">
+                        <div class="text-xs font-weight-bold text-info text-uppercase mb-1">Disk Usage</div>
+                        <div class="h5 mb-0 font-weight-bold text-gray-800">75%</div>
+                    </div>
+                    <div class="col-auto">
+                        <i class="fas fa-hdd fa-2x text-gray-300"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="col-xl-3 col-md-6 mb-4">
+        <div class="card border-left-warning shadow h-100 py-2">
+            <div class="card-body">
+                <div class="row no-gutters align-items-center">
+                    <div class="col mr-2">
+                        <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">Load Average</div>
+                        <div class="h5 mb-0 font-weight-bold text-gray-800">1.42</div>
+                    </div>
+                    <div class="col-auto">
+                        <i class="fas fa-chart-line fa-2x text-gray-300"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-lg-6">
+        <div class="card shadow mb-4">
+            <div class="card-header py-3">
+                <h6 class="m-0 font-weight-bold text-primary">Service Status</h6>
+            </div>
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table table-sm">
+                        <thead>
+                            <tr>
+                                <th>Service</th>
+                                <th>Status</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><i class="fas fa-server"></i> Apache</td>
+                                <td><span class="badge bg-success">Running</span></td>
+                                <td><button class="btn btn-sm btn-outline-secondary">Restart</button></td>
+                            </tr>
+                            <tr>
+                                <td><i class="fas fa-code"></i> PHP-FPM</td>
+                                <td><span class="badge bg-success">Running</span></td>
+                                <td><button class="btn btn-sm btn-outline-secondary">Restart</button></td>
+                            </tr>
+                            <tr>
+                                <td><i class="fas fa-database"></i> MariaDB</td>
+                                <td><span class="badge bg-success">Running</span></td>
+                                <td><button class="btn btn-sm btn-outline-secondary">Restart</button></td>
+                            </tr>
+                            <tr>
+                                <td><i class="fas fa-shield-alt"></i> Firewall</td>
+                                <td><span class="badge bg-success">Active</span></td>
+                                <td><button class="btn btn-sm btn-outline-secondary">Configure</button></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="col-lg-6">
+        <div class="card shadow mb-4">
+            <div class="card-header py-3">
+                <h6 class="m-0 font-weight-bold text-primary">Recent Activity</h6>
+            </div>
+            <div class="card-body">
+                <div class="list-group list-group-flush">
+                    <div class="list-group-item">
+                        <div class="d-flex w-100 justify-content-between">
+                            <h6 class="mb-1">SSL Certificate Renewed</h6>
+                            <small>3 hours ago</small>
+                        </div>
+                        <p class="mb-1">example.com SSL certificate was automatically renewed</p>
+                    </div>
+                    <div class="list-group-item">
+                        <div class="d-flex w-100 justify-content-between">
+                            <h6 class="mb-1">Backup Completed</h6>
+                            <small class="text-muted">6 hours ago</small>
+                        </div>
+                        <p class="mb-1">Daily backup completed successfully</p>
+                    </div>
+                    <div class="list-group-item">
+                        <div class="d-flex w-100 justify-content-between">
+                            <h6 class="mb-1">New Domain Added</h6>
+                            <small class="text-muted">1 day ago</small>
+                        </div>
+                        <p class="mb-1">Domain test.com was added and configured</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{{template "footer.html" .}}

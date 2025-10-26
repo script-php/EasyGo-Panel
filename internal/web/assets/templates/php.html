@@ -1,0 +1,235 @@
+{{template "header.html" .}}
+
+<div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+    <h1 class="h2">PHP Management</h1>
+    <div class="btn-toolbar mb-2 mb-md-0">
+        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#installPHPModal">
+            <i class="fas fa-plus"></i> Install PHP Version
+        </button>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-lg-8">
+        <div class="card mb-4">
+            <div class="card-header">
+                <h5>Installed PHP Versions</h5>
+            </div>
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th>Version</th>
+                                <th>FPM Status</th>
+                                <th>Default</th>
+                                <th>Extensions</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>PHP 8.2</td>
+                                <td><span class="badge bg-success">Running</span></td>
+                                <td><span class="badge bg-primary">Default</span></td>
+                                <td>35 installed</td>
+                                <td>
+                                    <button class="btn btn-sm btn-outline-primary">Configure</button>
+                                    <button class="btn btn-sm btn-outline-warning">Restart</button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>PHP 8.1</td>
+                                <td><span class="badge bg-success">Running</span></td>
+                                <td></td>
+                                <td>32 installed</td>
+                                <td>
+                                    <button class="btn btn-sm btn-outline-primary">Configure</button>
+                                    <button class="btn btn-sm btn-outline-warning">Restart</button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>PHP 7.4</td>
+                                <td><span class="badge bg-secondary">Stopped</span></td>
+                                <td></td>
+                                <td>28 installed</td>
+                                <td>
+                                    <button class="btn btn-sm btn-outline-success">Start</button>
+                                    <button class="btn btn-sm btn-outline-primary">Configure</button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        
+        <div class="card">
+            <div class="card-header">
+                <h5>PHP-FPM Pools</h5>
+            </div>
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th>Pool Name</th>
+                                <th>PHP Version</th>
+                                <th>User</th>
+                                <th>PM</th>
+                                <th>Status</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>www</td>
+                                <td>8.2</td>
+                                <td>www-data</td>
+                                <td>dynamic</td>
+                                <td><span class="badge bg-success">Active</span></td>
+                                <td>
+                                    <button class="btn btn-sm btn-outline-primary">Edit</button>
+                                    <button class="btn btn-sm btn-outline-warning">Restart</button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>example</td>
+                                <td>8.1</td>
+                                <td>www-data</td>
+                                <td>dynamic</td>
+                                <td><span class="badge bg-success">Active</span></td>
+                                <td>
+                                    <button class="btn btn-sm btn-outline-primary">Edit</button>
+                                    <button class="btn btn-sm btn-outline-warning">Restart</button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <button class="btn btn-primary">
+                    <i class="fas fa-plus"></i> Add FPM Pool
+                </button>
+            </div>
+        </div>
+    </div>
+    
+    <div class="col-lg-4">
+        <div class="card mb-4">
+            <div class="card-header">
+                <h5>Available Versions</h5>
+            </div>
+            <div class="card-body">
+                <div class="list-group list-group-flush">
+                    <div class="list-group-item d-flex justify-content-between align-items-center">
+                        PHP 8.4
+                        <button class="btn btn-sm btn-outline-primary">Install</button>
+                    </div>
+                    <div class="list-group-item d-flex justify-content-between align-items-center">
+                        PHP 8.3
+                        <button class="btn btn-sm btn-outline-primary">Install</button>
+                    </div>
+                    <div class="list-group-item d-flex justify-content-between align-items-center">
+                        PHP 8.0
+                        <button class="btn btn-sm btn-outline-primary">Install</button>
+                    </div>
+                    <div class="list-group-item d-flex justify-content-between align-items-center">
+                        PHP 7.3
+                        <button class="btn btn-sm btn-outline-primary">Install</button>
+                    </div>
+                    <div class="list-group-item d-flex justify-content-between align-items-center">
+                        PHP 7.2
+                        <button class="btn btn-sm btn-outline-primary">Install</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="card">
+            <div class="card-header">
+                <h5>Quick Actions</h5>
+            </div>
+            <div class="card-body">
+                <div class="d-grid gap-2">
+                    <button class="btn btn-outline-primary">Restart All PHP-FPM</button>
+                    <button class="btn btn-outline-warning">Update PHP Packages</button>
+                    <button class="btn btn-outline-info">View PHP Info</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Install PHP Modal -->
+<div class="modal fade" id="installPHPModal" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Install PHP Version</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+                <form>
+                    <div class="mb-3">
+                        <label class="form-label">PHP Version</label>
+                        <select class="form-select" required>
+                            <option value="">Select version...</option>
+                            <option value="8.4">PHP 8.4</option>
+                            <option value="8.3">PHP 8.3</option>
+                            <option value="8.0">PHP 8.0</option>
+                            <option value="7.3">PHP 7.3</option>
+                            <option value="7.2">PHP 7.2</option>
+                        </select>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Extensions to Install</label>
+                        <div class="row">
+                            <div class="col-6">
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" checked>
+                                    <label class="form-check-label">MySQL</label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" checked>
+                                    <label class="form-check-label">GD</label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" checked>
+                                    <label class="form-check-label">cURL</label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" checked>
+                                    <label class="form-check-label">XML</label>
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" checked>
+                                    <label class="form-check-label">ZIP</label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" checked>
+                                    <label class="form-check-label">mbstring</label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" checked>
+                                    <label class="form-check-label">OPcache</label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox">
+                                    <label class="form-check-label">Redis</label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                <button type="button" class="btn btn-primary">Install PHP</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+{{template "footer.html" .}}

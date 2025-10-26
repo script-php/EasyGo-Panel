@@ -1,0 +1,56 @@
+{{template "header.html" .}}
+
+<div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+    <h1 class="h2">SSL Certificates</h1>
+    <button type="button" class="btn btn-primary">
+        <i class="fas fa-plus"></i> Issue Certificate
+    </button>
+</div>
+
+<div class="card">
+    <div class="card-body">
+        <div class="table-responsive">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>Domain</th>
+                        <th>Type</th>
+                        <th>Issuer</th>
+                        <th>Valid From</th>
+                        <th>Valid Until</th>
+                        <th>Status</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>example.com</td>
+                        <td>Single Domain</td>
+                        <td>Let's Encrypt</td>
+                        <td>2024-01-15</td>
+                        <td>2024-04-15</td>
+                        <td><span class="badge bg-success">Valid</span></td>
+                        <td>
+                            <button class="btn btn-sm btn-outline-warning">Renew</button>
+                            <button class="btn btn-sm btn-outline-danger">Revoke</button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>*.demo.com</td>
+                        <td>Wildcard</td>
+                        <td>Let's Encrypt</td>
+                        <td>2024-02-01</td>
+                        <td>2024-05-01</td>
+                        <td><span class="badge bg-warning">Expiring Soon</span></td>
+                        <td>
+                            <button class="btn btn-sm btn-outline-warning">Renew</button>
+                            <button class="btn btn-sm btn-outline-danger">Revoke</button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+{{template "footer.html" .}}
