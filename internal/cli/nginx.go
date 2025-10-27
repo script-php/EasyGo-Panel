@@ -2,6 +2,7 @@ package cli
 
 import (
 	"easygo/pkg/actions"
+	"fmt"
 
 	"github.com/spf13/cobra"
 )
@@ -102,8 +103,36 @@ var nginxRestartCmd = &cobra.Command{
 	},
 }
 
+var nginxUninstallCmd = &cobra.Command{
+	Use:   "uninstall",
+	Short: "Uninstall Nginx web server and configurations",
+	Long:  `Completely remove Nginx web server including packages, configurations, and data. This action cannot be undone.`,
+	RunE: func(cmd *cobra.Command, args []string) error {
+		if err := requireRoot(); err != nil {
+			return err
+		}
+		
+		// Confirmation prompt
+		fmt.Print("WARNING: This will completely remove Nginx, all configurations, and data.\nAre you sure you want to continue? (yes/no): ")
+		var confirmation string
+		fmt.Scanln(&confirmation)
+		
+		if confirmation != "yes" {
+			fmt.Println("Nginx uninstall cancelled.")
+			return nil
+		}
+		
+		fmt.Println("Uninstalling Nginx web server...")
+		webAction := actions.NewWebServerAction()
+		result := webAction.UninstallNginx()
+		handleResult(result)
+		return nil
+	},
+}
+
 func init() {
 	nginxCmd.AddCommand(nginxInstallCmd)
+	nginxCmd.AddCommand(nginxUninstallCmd)
 	nginxCmd.AddCommand(nginxStatusCmd)
 	nginxCmd.AddCommand(nginxVhostCmd)
 	nginxCmd.AddCommand(nginxStartCmd)

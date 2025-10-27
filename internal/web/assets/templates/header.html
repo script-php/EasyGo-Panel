@@ -34,25 +34,28 @@
                 
                 <!-- User dropdown -->
                 <div class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle d-flex align-items-center" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    <button class="btn nav-link dropdown-toggle d-flex align-items-center text-white border-0" type="button" id="navbarDropdown" data-bs-toggle="dropdown" aria-expanded="false">
                         <i class="fas fa-user-circle me-2"></i>
                         <span>{{.User}}</span>
-                    </a>
-                    <ul class="dropdown-menu dropdown-menu-end">
-                        <li class="dropdown-header">
-                            <i class="fas fa-user"></i> Account
+                        <i class="fas fa-chevron-down ms-2"></i>
+                    </button>
+                    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+                        <li>
+                            <h6 class="dropdown-header">
+                                <i class="fas fa-user"></i> Account
+                            </h6>
                         </li>
                         <li><a class="dropdown-item" href="/panel/settings">
-                            <i class="fas fa-cog me-2"></i> Settings
+                            <i class="fas fa-cog"></i> Settings
                         </a></li>
                         <li><a class="dropdown-item" href="/panel/">
-                            <i class="fas fa-tachometer-alt me-2"></i> Dashboard
+                            <i class="fas fa-tachometer-alt"></i> Dashboard
                         </a></li>
                         <li><hr class="dropdown-divider"></li>
                         <li>
                             <form method="POST" action="/logout" class="d-inline w-100">
-                                <button type="submit" class="dropdown-item text-danger">
-                                    <i class="fas fa-sign-out-alt me-2"></i> Logout
+                                <button type="submit" class="dropdown-item text-danger w-100 border-0 bg-transparent text-start">
+                                    <i class="fas fa-sign-out-alt"></i> Logout
                                 </button>
                             </form>
                         </li>
@@ -168,6 +171,6 @@
             </div>
             {{end}}
     {{else}}
-    <!-- Login page body class -->
-    <body class="login-page">
+    <!-- Login page layout -->
+    <div class="login-container">
     {{end}}

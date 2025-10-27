@@ -4,9 +4,14 @@
     <h1 class="h2">Apache HTTP Server</h1>
     <div class="btn-toolbar mb-2 mb-md-0">
         <div class="btn-group me-2">
-            <button type="button" class="btn btn-success btn-sm">Start</button>
-            <button type="button" class="btn btn-warning btn-sm">Restart</button>
-            <button type="button" class="btn btn-danger btn-sm">Stop</button>
+            <button type="button" class="btn btn-success btn-sm" onclick="startService('apache2')">Start</button>
+            <button type="button" class="btn btn-warning btn-sm" onclick="restartService('apache2')">Restart</button>
+            <button type="button" class="btn btn-danger btn-sm" onclick="stopService('apache2')">Stop</button>
+        </div>
+        <div class="btn-group">
+            <button type="button" class="btn btn-outline-danger btn-sm" onclick="uninstallService('apache2')" data-bs-toggle="tooltip" title="Completely remove Apache">
+                <i class="fas fa-trash"></i> Uninstall
+            </button>
         </div>
     </div>
 </div>

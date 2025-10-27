@@ -6,6 +6,12 @@ document.addEventListener('DOMContentLoaded', function() {
     var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
         return new bootstrap.Tooltip(tooltipTriggerEl);
     });
+    
+    // Initialize dropdowns
+    var dropdownElementList = [].slice.call(document.querySelectorAll('.dropdown-toggle'));
+    var dropdownList = dropdownElementList.map(function (dropdownToggleEl) {
+        return new bootstrap.Dropdown(dropdownToggleEl);
+    });
 
     // Auto-hide alerts after 5 seconds
     const alerts = document.querySelectorAll('.alert');
@@ -158,6 +164,41 @@ function restartService(serviceName) {
     })
     .catch(error => {
         showAlert('danger', `Error restarting ${serviceName}: ${error.message}`);
+    });
+}
+
+// Uninstall service function
+function uninstallService(serviceName) {
+    // Show confirmation dialog
+    const confirmed = confirm(`WARNING: This will completely remove ${serviceName} and all its configurations.\n\nThis action cannot be undone!\n\nAre you sure you want to continue?`);
+    
+    if (!confirmed) {
+        return;
+    }
+    
+    // Show loading state
+    showAlert('warning', `Uninstalling ${serviceName}... This may take a few minutes.`);
+    
+    fetch(`/api/services/${serviceName}/uninstall`, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        }
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.success) {
+            showAlert('success', `${serviceName} uninstalled successfully. The page will reload in 3 seconds.`);
+            // Reload page after 3 seconds to reflect changes
+            setTimeout(() => {
+                window.location.reload();
+            }, 3000);
+        } else {
+            showAlert('danger', `Failed to uninstall ${serviceName}: ${data.message}`);
+        }
+    })
+    .catch(error => {
+        showAlert('danger', `Error uninstalling ${serviceName}: ${error.message}`);
     });
 }
 

@@ -316,6 +316,38 @@ func (s *Server) handleAPIServiceRestart(w http.ResponseWriter, r *http.Request)
 	json.NewEncoder(w).Encode(response)
 }
 
+// handleAPIServiceUninstall uninstalls a web server service
+func (s *Server) handleAPIServiceUninstall(w http.ResponseWriter, r *http.Request) {
+	w.Header().Set("Content-Type", "application/json")
+	
+	vars := mux.Vars(r)
+	serviceName := vars["service"]
+	
+	webAction := actions.NewWebServerAction()
+	var result *actions.Result
+	
+	switch serviceName {
+	case "apache", "apache2":
+		result = webAction.UninstallApache()
+	case "nginx":
+		result = webAction.UninstallNginx()
+	default:
+		response := APIResponse{
+			Success: false,
+			Message: "Unsupported service for uninstall: " + serviceName,
+		}
+		json.NewEncoder(w).Encode(response)
+		return
+	}
+	
+	response := APIResponse{
+		Success: result.Success,
+		Message: result.Message,
+	}
+	
+	json.NewEncoder(w).Encode(response)
+}
+
 // handleAPISystemStats returns system statistics
 func (s *Server) handleAPISystemStats(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type", "application/json")

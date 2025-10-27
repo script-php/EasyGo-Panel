@@ -4,9 +4,14 @@
     <h1 class="h2">Nginx Web Server</h1>
     <div class="btn-toolbar mb-2 mb-md-0">
         <div class="btn-group me-2">
-            <button type="button" class="btn btn-success btn-sm">Start</button>
-            <button type="button" class="btn btn-warning btn-sm">Restart</button>
-            <button type="button" class="btn btn-danger btn-sm">Stop</button>
+            <button type="button" class="btn btn-success btn-sm" onclick="startService('nginx')">Start</button>
+            <button type="button" class="btn btn-warning btn-sm" onclick="restartService('nginx')">Restart</button>
+            <button type="button" class="btn btn-danger btn-sm" onclick="stopService('nginx')">Stop</button>
+        </div>
+        <div class="btn-group">
+            <button type="button" class="btn btn-outline-danger btn-sm" onclick="uninstallService('nginx')" data-bs-toggle="tooltip" title="Completely remove Nginx">
+                <i class="fas fa-trash"></i> Uninstall
+            </button>
         </div>
     </div>
 </div>

@@ -88,7 +88,7 @@ ln -sf /opt/easygo/easygo /usr/local/bin/easygo
 echo "EasyGo Panel installed successfully!"
 echo "Start the web panel: systemctl start easygo"
 echo "Access CLI: easygo help"
-echo "Web interface will be available at: http://your-server:8080"
+echo "Web interface will be available at: http://your-server:8083"
 EOF
 
 chmod +x build/package/install.sh

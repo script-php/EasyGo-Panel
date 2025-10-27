@@ -194,3 +194,166 @@ func (w *WebServerAction) installNginxRHEL() *Result {
 	w.EnableService("nginx")
 	return w.StartService("nginx")
 }
+
+// UninstallApache removes Apache web server and configurations
+func (w *WebServerAction) UninstallApache() *Result {
+	if w.FileExists("/usr/bin/apt") {
+		return w.uninstallApacheDebian()
+	} else if w.FileExists("/usr/bin/yum") || w.FileExists("/usr/bin/dnf") {
+		return w.uninstallApacheRHEL()
+	}
+	
+	return &Result{
+		Success: false,
+		Message: "Unsupported Linux distribution",
+		Error:   fmt.Errorf("unsupported package manager"),
+	}
+}
+
+// UninstallNginx removes Nginx web server and configurations
+func (w *WebServerAction) UninstallNginx() *Result {
+	if w.FileExists("/usr/bin/apt") {
+		return w.uninstallNginxDebian()
+	} else if w.FileExists("/usr/bin/yum") || w.FileExists("/usr/bin/dnf") {
+		return w.uninstallNginxRHEL()
+	}
+	
+	return &Result{
+		Success: false,
+		Message: "Unsupported Linux distribution",
+		Error:   fmt.Errorf("unsupported package manager"),
+	}
+}
+
+// uninstallApacheDebian removes Apache on Debian/Ubuntu systems
+func (w *WebServerAction) uninstallApacheDebian() *Result {
+	// Stop Apache service first
+	w.StopService("apache2")
+	w.RunCommand("systemctl", "disable", "apache2")
+	
+	// Remove Apache packages
+	removeResult := w.RunCommand("apt", "purge", "-y", "apache2", "apache2-utils", "apache2-data", "apache2-bin")
+	if !removeResult.Success {
+		return &Result{
+			Success: false,
+			Message: "Failed to remove Apache packages: " + removeResult.Message,
+			Error:   removeResult.Error,
+		}
+	}
+	
+	// Remove configuration files and directories
+	w.RunCommand("rm", "-rf", "/etc/apache2")
+	w.RunCommand("rm", "-rf", "/var/log/apache2")
+	w.RunCommand("rm", "-rf", "/var/lib/apache2")
+	w.RunCommand("rm", "-rf", "/var/www/html")
+	
+	// Clean up any remaining packages
+	w.RunCommand("apt", "autoremove", "-y")
+	w.RunCommand("apt", "autoclean")
+	
+	return &Result{
+		Success: true,
+		Message: "Apache web server uninstalled successfully",
+	}
+}
+
+// uninstallApacheRHEL removes Apache on RHEL/CentOS systems
+func (w *WebServerAction) uninstallApacheRHEL() *Result {
+	// Stop httpd service first
+	w.StopService("httpd")
+	w.RunCommand("systemctl", "disable", "httpd")
+	
+	var removeCmd string
+	if w.FileExists("/usr/bin/dnf") {
+		removeCmd = "dnf"
+	} else {
+		removeCmd = "yum"
+	}
+	
+	// Remove Apache packages
+	removeResult := w.RunCommand(removeCmd, "remove", "-y", "httpd", "httpd-tools")
+	if !removeResult.Success {
+		return &Result{
+			Success: false,
+			Message: "Failed to remove Apache packages: " + removeResult.Message,
+			Error:   removeResult.Error,
+		}
+	}
+	
+	// Remove configuration files and directories
+	w.RunCommand("rm", "-rf", "/etc/httpd")
+	w.RunCommand("rm", "-rf", "/var/log/httpd")
+	w.RunCommand("rm", "-rf", "/var/www/html")
+	
+	return &Result{
+		Success: true,
+		Message: "Apache web server uninstalled successfully",
+	}
+}
+
+// uninstallNginxDebian removes Nginx on Debian/Ubuntu systems
+func (w *WebServerAction) uninstallNginxDebian() *Result {
+	// Stop Nginx service first
+	w.StopService("nginx")
+	w.RunCommand("systemctl", "disable", "nginx")
+	
+	// Remove Nginx packages
+	removeResult := w.RunCommand("apt", "purge", "-y", "nginx", "nginx-common", "nginx-core")
+	if !removeResult.Success {
+		return &Result{
+			Success: false,
+			Message: "Failed to remove Nginx packages: " + removeResult.Message,
+			Error:   removeResult.Error,
+		}
+	}
+	
+	// Remove configuration files and directories
+	w.RunCommand("rm", "-rf", "/etc/nginx")
+	w.RunCommand("rm", "-rf", "/var/log/nginx")
+	w.RunCommand("rm", "-rf", "/var/lib/nginx")
+	w.RunCommand("rm", "-rf", "/var/www/html")
+	
+	// Clean up any remaining packages
+	w.RunCommand("apt", "autoremove", "-y")
+	w.RunCommand("apt", "autoclean")
+	
+	return &Result{
+		Success: true,
+		Message: "Nginx web server uninstalled successfully",
+	}
+}
+
+// uninstallNginxRHEL removes Nginx on RHEL/CentOS systems
+func (w *WebServerAction) uninstallNginxRHEL() *Result {
+	// Stop Nginx service first
+	w.StopService("nginx")
+	w.RunCommand("systemctl", "disable", "nginx")
+	
+	var removeCmd string
+	if w.FileExists("/usr/bin/dnf") {
+		removeCmd = "dnf"
+	} else {
+		removeCmd = "yum"
+	}
+	
+	// Remove Nginx packages
+	removeResult := w.RunCommand(removeCmd, "remove", "-y", "nginx")
+	if !removeResult.Success {
+		return &Result{
+			Success: false,
+			Message: "Failed to remove Nginx packages: " + removeResult.Message,
+			Error:   removeResult.Error,
+		}
+	}
+	
+	// Remove configuration files and directories
+	w.RunCommand("rm", "-rf", "/etc/nginx")
+	w.RunCommand("rm", "-rf", "/var/log/nginx")
+	w.RunCommand("rm", "-rf", "/var/lib/nginx")
+	w.RunCommand("rm", "-rf", "/var/www/html")
+	
+	return &Result{
+		Success: true,
+		Message: "Nginx web server uninstalled successfully",
+	}
+}

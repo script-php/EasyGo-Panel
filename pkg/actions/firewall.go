@@ -52,7 +52,7 @@ func (f *FirewallAction) SetupBasicRules() *Result {
 		// Allow HTTPS
 		{"iptables", "-A", "INPUT", "-p", "tcp", "--dport", "443", "-j", "ACCEPT"},
 		// Allow EasyGo Panel
-		{"iptables", "-A", "INPUT", "-p", "tcp", "--dport", "8080", "-j", "ACCEPT"},
+		{"iptables", "-A", "INPUT", "-p", "tcp", "--dport", "8083", "-j", "ACCEPT"},
 		// Drop all other input
 		{"iptables", "-P", "INPUT", "DROP"},
 		// Allow all output

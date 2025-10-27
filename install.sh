@@ -68,7 +68,7 @@ Type=simple
 User=$USER
 Group=$USER
 WorkingDirectory=$INSTALL_DIR
-ExecStart=$INSTALL_DIR/easygo web --port 8080 --host 0.0.0.0
+ExecStart=$INSTALL_DIR/easygo web --port 8083 --host 0.0.0.0
 ExecReload=/bin/kill -HUP \$MAINPID
 Restart=always
 RestartSec=5
@@ -139,15 +139,15 @@ fi
 # Configure firewall (if available)
 echo "Configuring firewall..."
 if command -v ufw &> /dev/null; then
-    ufw allow 8080/tcp
-    echo "Firewall rule added for port 8080"
+    ufw allow 8083/tcp
+    echo "Firewall rule added for port 8083"
 elif command -v firewall-cmd &> /dev/null; then
-    firewall-cmd --permanent --add-port=8080/tcp
+    firewall-cmd --permanent --add-port=8083/tcp
     firewall-cmd --reload
-    echo "Firewall rule added for port 8080"
+    echo "Firewall rule added for port 8083"
 elif command -v iptables &> /dev/null; then
-    iptables -A INPUT -p tcp --dport 8080 -j ACCEPT
-    echo "Iptables rule added for port 8080"
+    iptables -A INPUT -p tcp --dport 8083 -j ACCEPT
+    echo "Iptables rule added for port 8083"
 fi
 
 # Display completion message
@@ -156,7 +156,7 @@ echo -e "${GREEN}========================================${NC}"
 echo -e "${GREEN}EasyGo Panel Installation Complete!${NC}"
 echo -e "${GREEN}========================================${NC}"
 echo ""
-echo "🌐 Web Interface: http://$(hostname -I | awk '{print $1}'):8080"
+echo "🌐 Web Interface: http://$(hostname -I | awk '{print $1}'):8083"
 echo "📱 CLI Usage: easygo help"
 echo "🔧 Service Management:"
 echo "   - Start:   systemctl start $SERVICE_NAME"

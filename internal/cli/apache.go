@@ -2,6 +2,7 @@ package cli
 
 import (
 	"easygo/pkg/actions"
+	"fmt"
 
 	"github.com/spf13/cobra"
 )
@@ -102,8 +103,36 @@ var apacheRestartCmd = &cobra.Command{
 	},
 }
 
+var apacheUninstallCmd = &cobra.Command{
+	Use:   "uninstall",
+	Short: "Uninstall Apache web server and configurations",
+	Long:  `Completely remove Apache web server including packages, configurations, and data. This action cannot be undone.`,
+	RunE: func(cmd *cobra.Command, args []string) error {
+		if err := requireRoot(); err != nil {
+			return err
+		}
+		
+		// Confirmation prompt
+		fmt.Print("WARNING: This will completely remove Apache, all configurations, and data.\nAre you sure you want to continue? (yes/no): ")
+		var confirmation string
+		fmt.Scanln(&confirmation)
+		
+		if confirmation != "yes" {
+			fmt.Println("Apache uninstall cancelled.")
+			return nil
+		}
+		
+		fmt.Println("Uninstalling Apache web server...")
+		webAction := actions.NewWebServerAction()
+		result := webAction.UninstallApache()
+		handleResult(result)
+		return nil
+	},
+}
+
 func init() {
 	apacheCmd.AddCommand(apacheInstallCmd)
+	apacheCmd.AddCommand(apacheUninstallCmd)
 	apacheCmd.AddCommand(apacheStatusCmd)
 	apacheCmd.AddCommand(apacheVhostCmd)
 	apacheCmd.AddCommand(apacheStartCmd)

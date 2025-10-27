@@ -90,6 +90,7 @@ func (s *Server) setupRoutes() {
 	api.HandleFunc("/services/{service}/start", s.handleAPIServiceStart).Methods("POST")
 	api.HandleFunc("/services/{service}/stop", s.handleAPIServiceStop).Methods("POST")
 	api.HandleFunc("/services/{service}/restart", s.handleAPIServiceRestart).Methods("POST")
+	api.HandleFunc("/services/{service}/uninstall", s.handleAPIServiceUninstall).Methods("POST")
 	api.HandleFunc("/system/stats", s.handleAPISystemStats).Methods("GET")
 }
 
