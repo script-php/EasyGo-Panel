@@ -137,7 +137,23 @@ body {
 
 /* Sidebar styling improvements */
 .sidebar-content {
-    padding: 1rem 0;
+    padding: 0;
+    height: 100%;
+}
+
+.sidebar-header {
+    background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+    border-bottom: 1px solid #dee2e6 !important;
+}
+
+.sidebar-heading {
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: #6c757d !important;
+    letter-spacing: 0.5px;
+    margin-top: 1.5rem !important;
+    margin-bottom: 0.5rem !important;
+    padding: 0 1.5rem !important;
 }
 
 .sidebar .nav-link {
@@ -151,6 +167,10 @@ body {
     font-weight: 500;
     border: none;
     background: none;
+}
+
+.sidebar .nav-link span {
+    flex: 1;
 }
 
 .sidebar .nav-link:hover {
