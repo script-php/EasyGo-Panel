@@ -8,11 +8,16 @@
     <link href="/static/css/style.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
 </head>
-<body class="bg-light">
+<body>
     {{if ne .CurrentPage "login"}}
-    <!-- Navigation -->
+    <!-- Fixed Top Navigation -->
     <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
         <div class="container-fluid">
+            <!-- Mobile sidebar toggle -->
+            <button class="navbar-toggler me-2" type="button" onclick="toggleSidebar()" aria-label="Toggle sidebar">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            
             <a class="navbar-brand" href="/panel/">
                 <i class="fas fa-server"></i> EasyGo Panel
             </a>
@@ -22,7 +27,7 @@
                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown">
                         <i class="fas fa-user"></i> {{.User}}
                     </a>
-                    <ul class="dropdown-menu">
+                    <ul class="dropdown-menu dropdown-menu-end">
                         <li><a class="dropdown-item" href="/panel/settings"><i class="fas fa-cog"></i> Settings</a></li>
                         <li><hr class="dropdown-divider"></li>
                         <li>
@@ -35,73 +40,75 @@
             </div>
         </div>
     </nav>
-    
-    <div class="container-fluid">
-        <div class="row">
-            <!-- Sidebar -->
-            <nav class="col-md-3 col-lg-2 d-md-block bg-white sidebar">
-                <div class="position-sticky pt-3">
-                    <ul class="nav flex-column">
-                        <li class="nav-item">
-                            <a class="nav-link {{if eq .CurrentPage "dashboard"}}active{{end}}" href="/panel/">
-                                <i class="fas fa-tachometer-alt"></i> Dashboard
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link {{if eq .CurrentPage "services"}}active{{end}}" href="/panel/services">
-                                <i class="fas fa-cogs"></i> Services
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link {{if eq .CurrentPage "domains"}}active{{end}}" href="/panel/domains">
-                                <i class="fas fa-globe"></i> Domains
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link {{if eq .CurrentPage "ssl"}}active{{end}}" href="/panel/ssl">
-                                <i class="fas fa-lock"></i> SSL Certificates
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link {{if eq .CurrentPage "databases"}}active{{end}}" href="/panel/databases">
-                                <i class="fas fa-database"></i> Databases
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#" data-bs-toggle="collapse" data-bs-target="#webserverSubmenu">
-                                <i class="fas fa-server"></i> Web Servers
-                            </a>
-                            <div class="collapse" id="webserverSubmenu">
-                                <ul class="nav flex-column ms-3">
-                                    <li class="nav-item">
-                                        <a class="nav-link {{if eq .CurrentPage "apache"}}active{{end}}" href="/panel/services/apache">
-                                            Apache
-                                        </a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a class="nav-link {{if eq .CurrentPage "nginx"}}active{{end}}" href="/panel/services/nginx">
-                                            Nginx
-                                        </a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a class="nav-link {{if eq .CurrentPage "php"}}active{{end}}" href="/panel/services/php">
-                                            PHP
-                                        </a>
-                                    </li>
-                                </ul>
-                            </div>
-                        </li>
-                    </ul>
-                </div>
-            </nav>
-            
-            <!-- Main content -->
-            <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
-    {{end}}
-    
-    {{if .Flash}}
-    <div class="alert alert-danger alert-dismissible fade show mt-3" role="alert">
-        {{.Flash}}
-        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
-    </div>
+
+    <!-- Main Container -->
+    <div class="main-container">
+        <!-- Fixed Sidebar -->
+        <nav class="sidebar d-md-block" id="sidebar">
+            <div class="sidebar-content pt-3">
+                <ul class="nav flex-column">
+                    <li class="nav-item">
+                        <a class="nav-link {{if eq .CurrentPage "dashboard"}}active{{end}}" href="/panel/">
+                            <i class="fas fa-tachometer-alt"></i> Dashboard
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link {{if eq .CurrentPage "services"}}active{{end}}" href="/panel/services">
+                            <i class="fas fa-cogs"></i> Services
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link {{if eq .CurrentPage "domains"}}active{{end}}" href="/panel/domains">
+                            <i class="fas fa-globe"></i> Domains
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link {{if eq .CurrentPage "ssl"}}active{{end}}" href="/panel/ssl">
+                            <i class="fas fa-lock"></i> SSL Certificates
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link {{if eq .CurrentPage "databases"}}active{{end}}" href="/panel/databases">
+                            <i class="fas fa-database"></i> Databases
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#" data-bs-toggle="collapse" data-bs-target="#webserverSubmenu" aria-expanded="false">
+                            <i class="fas fa-server"></i> Web Servers <i class="fas fa-chevron-down ms-auto"></i>
+                        </a>
+                        <div class="collapse" id="webserverSubmenu">
+                            <ul class="nav flex-column ms-3">
+                                <li class="nav-item">
+                                    <a class="nav-link {{if eq .CurrentPage "apache"}}active{{end}}" href="/panel/services/apache">
+                                        <i class="fab fa-apache"></i> Apache
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link {{if eq .CurrentPage "nginx"}}active{{end}}" href="/panel/services/nginx">
+                                        <i class="fas fa-server"></i> Nginx
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link {{if eq .CurrentPage "php"}}active{{end}}" href="/panel/services/php">
+                                        <i class="fab fa-php"></i> PHP
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+        
+        <!-- Main Content Area -->
+        <main class="main-content">
+            {{if .Flash}}
+            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                {{.Flash}}
+                <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+            </div>
+            {{end}}
+    {{else}}
+    <!-- Login page body class -->
+    <body class="login-page">
     {{end}}

@@ -83,6 +83,14 @@ func (s *Server) setupRoutes() {
 	
 	// Settings
 	protected.HandleFunc("/settings", s.handleSettings).Methods("GET", "POST")
+	
+	// API endpoints
+	api := protected.PathPrefix("/api").Subrouter()
+	api.HandleFunc("/services/status", s.handleAPIServiceStatus).Methods("GET")
+	api.HandleFunc("/services/{service}/start", s.handleAPIServiceStart).Methods("POST")
+	api.HandleFunc("/services/{service}/stop", s.handleAPIServiceStop).Methods("POST")
+	api.HandleFunc("/services/{service}/restart", s.handleAPIServiceRestart).Methods("POST")
+	api.HandleFunc("/system/stats", s.handleAPISystemStats).Methods("GET")
 }
 
 // authMiddleware checks if user is authenticated

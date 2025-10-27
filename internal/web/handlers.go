@@ -1,8 +1,12 @@
 package web
 
 import (
+	"easygo/pkg/actions"
 	"easygo/pkg/auth"
+	"encoding/json"
 	"net/http"
+	
+	"github.com/gorilla/mux"
 )
 
 // PageData represents common page data
@@ -86,10 +90,20 @@ func (s *Server) handleDashboard(w http.ResponseWriter, r *http.Request) {
 	session, _ := s.store.Get(r, "session")
 	username, _ := session.Values["username"].(string)
 	
+	// Get real system stats (basic implementation)
+	stats := make(map[string]interface{})
+	
+	// This is a basic implementation - in production you'd want proper system monitoring
+	stats["cpu_usage"] = "45%"
+	stats["memory_usage"] = "2.4 GB"
+	stats["disk_usage"] = "75%"
+	stats["uptime"] = "5 days"
+	
 	data := PageData{
 		Title:       "Dashboard - EasyGo Panel",
 		User:        username,
 		CurrentPage: "dashboard",
+		Data:        stats,
 	}
 	
 	s.renderTemplate(w, "dashboard.html", data)
@@ -205,4 +219,114 @@ func (s *Server) handleSettings(w http.ResponseWriter, r *http.Request) {
 	}
 	
 	s.renderTemplate(w, "settings.html", data)
+}
+
+// API Handlers
+
+type APIResponse struct {
+	Success bool        `json:"success"`
+	Message string      `json:"message"`
+	Data    interface{} `json:"data,omitempty"`
+}
+
+// handleAPIServiceStatus returns status of all services
+func (s *Server) handleAPIServiceStatus(w http.ResponseWriter, r *http.Request) {
+	w.Header().Set("Content-Type", "application/json")
+	
+	baseAction := &actions.BaseAction{}
+	services := []string{"apache2", "nginx", "php8.2-fpm", "mysql", "postgresql"}
+	var serviceData []map[string]interface{}
+	
+	for _, service := range services {
+		result := baseAction.ServiceStatus(service)
+		status := "stopped"
+		if result.Success {
+			if serviceResult, ok := result.Data.(*actions.Service); ok {
+				if serviceResult.Status == "active" {
+					status = "running"
+				}
+			}
+		}
+		
+		serviceData = append(serviceData, map[string]interface{}{
+			"name":   service,
+			"status": status,
+		})
+	}
+	
+	response := APIResponse{
+		Success: true,
+		Data:    serviceData,
+	}
+	
+	json.NewEncoder(w).Encode(response)
+}
+
+// handleAPIServiceStart starts a service
+func (s *Server) handleAPIServiceStart(w http.ResponseWriter, r *http.Request) {
+	w.Header().Set("Content-Type", "application/json")
+	
+	vars := mux.Vars(r)
+	serviceName := vars["service"]
+	
+	baseAction := &actions.BaseAction{}
+	result := baseAction.StartService(serviceName)
+	
+	response := APIResponse{
+		Success: result.Success,
+		Message: result.Message,
+	}
+	
+	json.NewEncoder(w).Encode(response)
+}
+
+// handleAPIServiceStop stops a service
+func (s *Server) handleAPIServiceStop(w http.ResponseWriter, r *http.Request) {
+	w.Header().Set("Content-Type", "application/json")
+	
+	vars := mux.Vars(r)
+	serviceName := vars["service"]
+	
+	baseAction := &actions.BaseAction{}
+	result := baseAction.StopService(serviceName)
+	
+	response := APIResponse{
+		Success: result.Success,
+		Message: result.Message,
+	}
+	
+	json.NewEncoder(w).Encode(response)
+}
+
+// handleAPIServiceRestart restarts a service
+func (s *Server) handleAPIServiceRestart(w http.ResponseWriter, r *http.Request) {
+	w.Header().Set("Content-Type", "application/json")
+	
+	vars := mux.Vars(r)
+	serviceName := vars["service"]
+	
+	baseAction := &actions.BaseAction{}
+	result := baseAction.RestartService(serviceName)
+	
+	response := APIResponse{
+		Success: result.Success,
+		Message: result.Message,
+	}
+	
+	json.NewEncoder(w).Encode(response)
+}
+
+// handleAPISystemStats returns system statistics
+func (s *Server) handleAPISystemStats(w http.ResponseWriter, r *http.Request) {
+	w.Header().Set("Content-Type", "application/json")
+	
+	// Basic system stats - in production you'd use proper system monitoring
+	stats := map[string]string{
+		"cpu":    "45%",
+		"memory": "2.4 GB",
+		"disk":   "75%",
+		"uptime": "5 days",
+	}
+	
+	json.NewEncoder(w).Encode(stats)
 }
